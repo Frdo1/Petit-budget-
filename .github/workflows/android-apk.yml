@@ -1,0 +1,45 @@
+# Compile l'APK Android sur les serveurs de GitHub, sans compte Expo.
+# L'APK est publié dans l'onglet « Releases » du dépôt, téléchargeable depuis le téléphone.
+name: APK Android
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Générer le projet Android
+        run: npx expo prebuild --platform android --no-install
+
+      - name: Compiler l'APK
+        working-directory: android
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Publier l'APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Petit Budget ${{ github.run_number }}
+          body: APK à installer directement sur Android.
+          files: android/app/build/outputs/apk/release/app-release.apk

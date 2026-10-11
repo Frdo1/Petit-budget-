@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Petit Budget",
+    "slug": "petit-budget",
+    "version": "1.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.frdo1.petitbudget"
+    },
+    "android": {
+      "package": "com.frdo1.petitbudget",
+      "versionCode": 2,
+      "adaptiveIcon": {
+        "backgroundColor": "#3FA265",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "backgroundColor": "#F3F9F0"
+  }
+}

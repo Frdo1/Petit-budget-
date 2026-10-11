@@ -1,0 +1,987 @@
+<title>Petit Budget Soissons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one mobile column — onglets Recettes / Nos produits, chips magasin, cartes recettes à étiquette jaune, carnet d'achats partagé */
+:root{
+  --bg:#F3F9F0; --surface:#FFFFFF; --ink:#1E2A22; --muted:#5B6B60; --line:#D9E8D5;
+  --green:#2F8A52; --green-soft:#E3F4E6; --tag:#FFC93C; --tag-ink:#2B2105; --warn:#D9472F;
+  --tomato:#E2553F; --leaf:#5FB36F; --hero-bg:#D3EFD8; --hero-ink:#173A25; --hero-hl:#D9472F; --rim:#FFFFFF;
+  --sel-bg:#BFE6C8; --sel-ink:#16402A; --accent-bg:#3FA265; --on-accent:#FFFFFF;
+  --pattern:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22220%22 viewBox=%220 0 220 220%22%3E%3Cg fill=%22none%22 stroke=%22%233FA265%22 stroke-opacity=%22.13%22 stroke-width=%222.2%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cg transform=%22translate(28 30) rotate(-25)%22%3E%3Cpath d=%22M0 0 L10 46 L20 0 Z%22/%3E%3Cpath d=%22M4 12 h7 M6 24 h6%22/%3E%3Cpath d=%22M10 0 C6 -10 0 -12 -4 -14 M10 0 C10 -10 12 -14 14 -18 M10 0 C14 -8 20 -10 24 -10%22/%3E%3C/g%3E%3Cg transform=%22translate(150 40)%22%3E%3Ccircle cx=%220%22 cy=%220%22 r=%2217%22/%3E%3Cpath d=%22M-6 -16 L0 -10 L6 -16 M0 -10 V-20%22/%3E%3C/g%3E%3Cg transform=%22translate(95 105) rotate(20)%22%3E%3Cpath d=%22M0 -22 C14 -22 22 -6 20 8 C18 20 8 26 0 26 C-8 26 -18 20 -20 8 C-22 -6 -14 -22 0 -22 Z%22/%3E%3C/g%3E%3Cg transform=%22translate(178 140)%22%3E%3Ccircle r=%2218%22/%3E%3Ccircle r=%2213%22/%3E%3Cpath d=%22M0 -13 V13 M-13 0 H13 M-9 -9 L9 9 M9 -9 L-9 9%22/%3E%3C/g%3E%3Cg transform=%22translate(40 160) rotate(-35)%22%3E%3Cpath d=%22M0 26 V-26%22/%3E%3Cpath d=%22M0 -18 c-8 -2 -10 -10 -10 -10 c8 0 10 6 10 10 M0 -18 c8 -2 10 -10 10 -10 c-8 0 -10 6 -10 10 M0 -4 c-8 -2 -10 -10 -10 -10 c8 0 10 6 10 10 M0 -4 c8 -2 10 -10 10 -10 c-8 0 -10 6 -10 10 M0 10 c-8 -2 -10 -10 -10 -10 c8 0 10 6 10 10 M0 10 c8 -2 10 -10 10 -10 c-8 0 -10 6 -10 10%22/%3E%3C/g%3E%3Cg transform=%22translate(118 190) rotate(30)%22%3E%3Cpath d=%22M0 18 C-16 6 -14 -14 0 -20 C14 -14 16 6 0 18 Z M0 18 V-20 M0 -4 L-7 -10 M0 6 L7 0%22/%3E%3C/g%3E%3Cg transform=%22translate(70 62)%22%3E%3Ccircle cx=%22-6%22 cy=%220%22 r=%226%22/%3E%3Ccircle cx=%226%22 cy=%222%22 r=%226%22/%3E%3Ccircle cx=%220%22 cy=%22-9%22 r=%226%22/%3E%3C/g%3E%3Cg transform=%22translate(196 78) rotate(-15)%22%3E%3Cpath d=%22M-10 -6 C-14 6 -6 16 0 16 C6 16 14 6 10 -6 C6 -14 -6 -14 -10 -6 Z M0 -12 C0 -18 4 -20 7 -21%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  color-scheme:light;
+  --display:"Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+
+
+body{background-color:var(--bg);background-image:var(--pattern);background-size:220px 220px;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:20px 48px;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-size:2.1rem;font-weight:700;line-height:1.02;letter-spacing:-.01em}
+h1 span{color:var(--hero-hl)}
+h2{font-size:1.2rem;font-weight:600}
+.hero{background:var(--hero-bg);color:var(--hero-ink);border-radius:20px;padding:20px 18px;display:grid;grid-template-columns:1fr 112px;gap:12px;align-items:center;overflow:hidden;position:relative}
+.hero .lede{margin:8px 0 0;color:var(--hero-ink);opacity:.88;max-width:60ch}
+.hero svg{width:112px;height:auto;display:block}
+.bowl{fill:var(--tag)} .bowl-rim{fill:var(--rim)} .tom{fill:var(--tomato)} .lf{fill:var(--leaf)} .egg{fill:#FFF6E2} .yolk{fill:var(--tag)} .steam{fill:none;stroke:var(--hero-ink);stroke-width:3;stroke-linecap:round;opacity:.5}
+@media (max-width:360px){.hero{grid-template-columns:1fr 84px}.hero svg{width:84px}}
+.label{font-family:var(--display);font-stretch:90%;font-weight:700;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.sec{display:flex;flex-direction:column;gap:14px}
+
+.tabs{display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px;gap:4px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.tab{appearance:none;border:0;background:transparent;color:var(--muted);font:780 1rem var(--display);font-stretch:85%;padding:10px;border-radius:9px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--sel-bg);color:var(--sel-ink)}
+.tab .n{font-family:var(--mono);font-size:.8rem;font-weight:600;margin-left:4px;opacity:.8}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{appearance:none;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 13px;font:600 .9rem var(--body);cursor:pointer;min-height:38px}
+.chip[aria-pressed="true"]{background:var(--sel-bg);border-color:var(--accent-bg);color:var(--sel-ink)}
+.chip.add::before{content:"+ ";color:var(--green);font-weight:700}
+.chip:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--tag);outline-offset:2px}
+.where{margin:0;font-size:.85rem;color:var(--muted)}
+
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ctl{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.stepper{display:flex;align-items:center;gap:10px}
+.stepper button{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:700 1.1rem var(--body);cursor:pointer}
+.stepper output{font:600 1.3rem var(--mono);min-width:2ch;text-align:center}
+input[type=range]{width:100%;accent-color:var(--green)}
+.ctl .val{font:600 1.05rem var(--mono)}
+
+.notice{border-left:4px solid var(--tag);background:var(--surface);padding:10px 12px;font-size:.9rem;color:var(--muted);border-radius:0 8px 8px 0;margin:0}
+.notice b{color:var(--ink)}
+
+.list{display:flex;flex-direction:column;gap:12px}
+.count{font-size:.9rem;color:var(--muted);margin:0}
+details.recipe{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 0 var(--line);overflow:hidden}
+details.recipe>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:14px 14px 14px 16px}
+details.recipe>summary::-webkit-details-marker{display:none}
+.r-name{font-family:var(--display);font-weight:780;font-stretch:85%;font-size:1.2rem;line-height:1.15}
+.r-meta{font-size:.85rem;color:var(--muted);margin-top:3px}
+.r-best{font-size:.82rem;color:var(--green);font-weight:600;margin-top:4px}
+.have{display:inline-block;margin-top:6px;font:600 .75rem var(--display);letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--green-soft);color:var(--green)}
+.have.full{background:var(--sel-bg);color:var(--sel-ink)}
+.tag{position:relative;background:var(--tag);color:var(--tag-ink);padding:6px 10px 6px 16px;border-radius:4px 8px 8px 4px;text-align:right;min-width:86px;clip-path:polygon(10px 0,100% 0,100% 100%,10px 100%,0 50%)}
+.tag::before{content:"";position:absolute;left:7px;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--surface)}
+.tag .big{font:600 1.15rem var(--mono);display:block;line-height:1.1}
+.tag .small{font:600 .68rem var(--display);letter-spacing:.06em;text-transform:uppercase}
+.r-body{border-top:1px dashed var(--line);padding:14px 16px 18px;display:flex;flex-direction:column;gap:16px}
+.ing{width:100%;border-collapse:collapse;font-size:.92rem}
+.ing td{padding:6px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.ing td:nth-child(2),.ing td:nth-child(3){text-align:right;white-space:nowrap;padding-left:10px;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.85rem}
+.ing td:nth-child(2){color:var(--muted)}
+.ing tr.got td:first-child::after{content:" ✓";color:var(--green);font-weight:700}
+.ing tfoot td{border-bottom:0;font-weight:700;padding-top:10px}
+.bars{display:flex;flex-direction:column;gap:6px}
+.bar{display:grid;grid-template-columns:118px 1fr 64px;gap:8px;align-items:center;font-size:.85rem}
+.bar .nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar .track{height:12px;background:var(--bg);border-radius:3px;overflow:hidden}
+.bar .fill{display:block;height:100%;background:var(--muted);opacity:.55}
+.bar.best .fill{background:var(--green);opacity:1}
+.bar.best .nm{font-weight:700;color:var(--green)}
+.bar .v{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+ol.steps,ul.plain{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}
+.btn{appearance:none;border:1.5px solid var(--green);background:transparent;color:var(--green);font:700 .92rem var(--body);border-radius:8px;padding:9px 14px;cursor:pointer;align-self:flex-start}
+.btn.solid{background:var(--accent-bg);border-color:var(--accent-bg);color:var(--on-accent)}
+.btn.danger{border-color:var(--warn);color:var(--warn)}
+.btn:disabled{opacity:.5;cursor:default}
+.copied{font-size:.85rem;color:var(--green);margin-left:8px}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:12px;padding:20px;text-align:center;color:var(--muted)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:12px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form .full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field input,.field select{width:100%;padding:10px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:500 1rem var(--body)}
+.field input[type=number]{font-family:var(--mono)}
+.msg{font-size:.88rem;margin:0;color:var(--muted)}
+.msg.err{color:var(--warn)}
+
+.prod{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.prod:last-child{border-bottom:0}
+.p-name{font-weight:700;overflow-wrap:anywhere}
+.p-sub{font-size:.82rem;color:var(--muted)}
+.p-act{display:flex;gap:6px;align-items:center}
+.plus{appearance:none;border:0;background:var(--tag);color:var(--tag-ink);font:700 .9rem var(--body);border-radius:8px;padding:8px 12px;cursor:pointer;white-space:nowrap}
+.more{appearance:none;border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;width:36px;height:36px;cursor:pointer;font:700 1rem var(--body)}
+.edit{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}
+.edit .field{flex:1 1 120px}
+
+details.prices{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+details.prices>summary{cursor:pointer;padding:14px 16px;font-family:var(--display);font-weight:780;font-stretch:85%;font-size:1.1rem}
+.p-body{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px}
+.p-row{display:grid;grid-template-columns:1fr 92px 44px;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.p-row input{width:100%;padding:6px 8px;border:1.5px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:500 .92rem var(--mono);text-align:right}
+.p-row input.changed{border-color:var(--tag)}
+.p-row input:disabled{border-style:dashed;color:var(--green)}
+.p-row .u{color:var(--muted);font-size:.8rem}
+.p-cat{margin-top:10px}
+.foot{font-size:.82rem;color:var(--muted);margin:0}
+.linkbtn{appearance:none;border:0;background:none;color:var(--green);font-weight:600;text-decoration:underline;cursor:pointer;padding:0;font-size:inherit}
+.budnum{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.big2{font-size:1.8rem;font-weight:600;line-height:1}
+.meter{position:relative;height:14px;background:var(--bg);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.meter span{display:block;height:100%;width:0;background:var(--green)}
+.meter span.over{background:var(--warn)}
+.meter i{position:absolute;top:-1px;bottom:-1px;width:2px;background:var(--ink);opacity:.6}
+.tk{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.tk:last-child{border-bottom:0}
+.tk .x{appearance:none;border:0;background:none;color:var(--muted);font-size:1.1rem;cursor:pointer;width:32px;height:32px}
+.byshop{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.85rem;color:var(--muted)}
+.byshop b{color:var(--ink);font-family:var(--mono);font-weight:600}
+/* menu */
+.mn{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.mn:last-child{border-bottom:0}
+.mn .stepper button{width:30px;height:30px;font-size:1rem}
+.mn .stepper output{font-size:1rem}
+.shop-cat{margin-top:12px}
+.sh{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.sh input[type=checkbox]{width:22px;height:22px;accent-color:var(--green)}
+.sh.done .nm{text-decoration:line-through;color:var(--muted)}
+.sh.home{opacity:.55}
+.sh .q{font-family:var(--mono);font-size:.82rem;color:var(--muted);white-space:nowrap}
+.mini{appearance:none;border:1.5px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:3px 9px;font:600 .75rem var(--body);cursor:pointer;white-space:nowrap}
+.mini[aria-pressed="true"]{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+.inmenu{display:inline-block;margin-top:6px;margin-left:4px;font:600 .75rem var(--display);letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--tag);color:var(--tag-ink)}
+/* cagnotte & défis */
+.jar-row{display:grid;grid-template-columns:86px 1fr;gap:14px;align-items:center}
+.jar{width:86px;height:auto}
+.jar .glass{fill:var(--bg);stroke:var(--green);stroke-width:3}
+.jar .lid{fill:var(--green)}
+.jar .coins{fill:var(--tag);transition:y .6s ease,height .6s ease}
+.defi{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);cursor:pointer;text-align:left;font:600 .95rem var(--body);color:var(--ink);width:100%}
+.defi .ck{width:26px;height:26px;border-radius:50%;border:2px solid var(--green);display:grid;place-items:center;color:var(--hero-ink);font-weight:800}
+.defi[aria-pressed="true"]{border-color:var(--green);background:var(--green-soft)}
+.defi[aria-pressed="true"] .ck{background:var(--green);color:var(--surface)}
+.defi[aria-pressed="true"] .ck::after{content:"✓"}
+.badges{display:flex;flex-wrap:wrap;gap:8px}
+.badge{display:flex;align-items:center;gap:6px;padding:5px 10px 5px 6px;border-radius:999px;background:var(--bg);border:1.5px dashed var(--line);color:var(--muted);font:600 .82rem var(--body)}
+.badge i{width:20px;height:20px;border-radius:50%;background:var(--line);display:block}
+.badge.on{border-style:solid;border-color:var(--tag);background:var(--surface);color:var(--ink)}
+.badge.on i{background:var(--tag);box-shadow:inset 0 0 0 4px var(--leaf)}
+.badge.new{animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
+.bravo{color:var(--green);font-weight:700}
+/* scan */
+.scan-row{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.scan-row input[type=checkbox]{width:20px;height:20px;accent-color:var(--green)}
+.scan-row .q{font-family:var(--mono);font-size:.85rem;white-space:nowrap}
+.filebtn{position:relative;overflow:hidden}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.idea{border-top:1px dashed var(--line);padding-top:12px;display:flex;flex-direction:column;gap:8px}
+.idea h3{font-size:1.1rem;font-weight:780;font-stretch:85%}
+@media (max-width:420px){.controls{grid-template-columns:1fr}.bar{grid-template-columns:96px 1fr 58px}}
+@media (prefers-reduced-motion:no-preference){details.recipe[open] .r-body{animation:in .18s ease-out}@keyframes in{from{opacity:.4;transform:translateY(-4px)}to{opacity:1;transform:none}}}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div style="min-width:0">
+    <h1>Petit budget <span>Soissons</span></h1>
+    <p class="lede">Le budget courses du mois, ce qu’on achète le plus, et les recettes pas chères qu’on peut faire avec.</p>
+    </div>
+    <svg viewBox="0 0 120 110" role="img" aria-label="Bol de légumes">
+      <path class="steam" d="M42 18 c-6 -8 6 -10 0 -18 M62 14 c-6 -8 6 -10 0 -18 M82 18 c-6 -8 6 -10 0 -18"/>
+      <ellipse class="lf" cx="38" cy="50" rx="16" ry="8" transform="rotate(-25 38 50)"/>
+      <ellipse class="lf" cx="86" cy="46" rx="15" ry="7" transform="rotate(30 86 46)"/>
+      <circle class="tom" cx="52" cy="50" r="11"/><circle class="tom" cx="74" cy="52" r="9"/>
+      <ellipse class="egg" cx="64" cy="44" rx="13" ry="10"/><circle class="yolk" cx="64" cy="44" r="5"/>
+      <path class="bowl" d="M10 56 H110 C108 84 88 102 60 102 C32 102 12 84 10 56 Z"/>
+      <rect class="bowl-rim" x="6" y="52" width="108" height="7" rx="3.5"/>
+    </svg>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Sections">
+    <button type="button" class="tab" role="tab" id="t-rec" aria-selected="true" aria-controls="v-rec">Recettes</button>
+    <button type="button" class="tab" role="tab" id="t-menu" aria-selected="false" aria-controls="v-menu">Menu<span class="n" id="nmenu"></span></button>
+    <button type="button" class="tab" role="tab" id="t-prod" aria-selected="false" aria-controls="v-prod">Nos courses<span class="n" id="nprod"></span></button>
+  </div>
+
+  <!-- ============ RECETTES ============ -->
+  <section class="sec" id="v-rec" role="tabpanel" aria-labelledby="t-rec">
+    <div class="sec" style="gap:8px">
+      <div class="label">Magasin</div>
+      <div class="chips" id="stores" role="group" aria-label="Choix du magasin"></div>
+      <p class="where" id="where"></p>
+    </div>
+
+    <div class="controls" aria-label="Réglages">
+      <div class="ctl">
+        <span class="label">Personnes</span>
+        <div class="stepper">
+          <button type="button" id="minus" aria-label="Une personne de moins">−</button>
+          <output id="pers">4</output>
+          <button type="button" id="plus" aria-label="Une personne de plus">+</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="label" for="budget">Budget max par part</label>
+        <span class="val" id="budgetVal"></span>
+        <input type="range" id="budget" min="0.5" max="4" step="0.25" value="4">
+      </div>
+    </div>
+
+    <div class="sec" style="gap:8px">
+      <div class="label">Afficher</div>
+      <div class="chips" id="mode" role="group" aria-label="Filtre recettes">
+        <button type="button" class="chip" data-mode="all" aria-pressed="true">Toutes les recettes</button>
+        <button type="button" class="chip" data-mode="have" aria-pressed="false">Avec nos produits</button>
+      </div>
+    </div>
+
+    <div class="card" id="aiBox" hidden>
+      <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
+        <h2>Idées de Claude avec nos produits</h2>
+        <div style="display:flex;gap:8px">
+          <button type="button" class="btn solid" id="aiGo">Proposer 3 recettes</button>
+          <button type="button" class="btn" id="aiStop" hidden>Arrêter</button>
+        </div>
+      </div>
+      <p class="msg" id="aiMsg">Claude regarde vos produits les plus achetés et propose des plats pas chers. Ça prend environ 30 secondes.</p>
+      <div id="aiOut"></div>
+    </div>
+
+    <p class="notice"><b>Prix estimés, pas un relevé en direct.</b> Les drives ne publient pas leurs prix en accès libre. Les montants partent de prix moyens marque distributeur (oct. 2026) ajustés par enseigne. Les prix que vous saisissez dans « Nos courses » remplacent ces estimations.</p>
+
+    <div class="sec" aria-live="polite">
+      <p class="count" id="count"></p>
+      <div class="list" id="recipes"></div>
+    </div>
+
+    <details class="prices" id="pricesBox">
+      <summary>Prix de référence des ingrédients</summary>
+      <div class="p-body">
+        <p class="foot">Prix niveau E.Leclerc, marque distributeur. En vert pointillé : prix venant de « Nos courses ». Une case jaune : prix corrigé sur ce téléphone seulement.</p>
+        <div id="pgrid"></div>
+        <button type="button" class="btn" id="reset">Remettre les prix d'origine</button>
+      </div>
+    </details>
+    <p class="foot">Les coûts incluent une part « placard » (huile, sel, épices, ail) de 0,15 € par personne. Indices par enseigne estimés à partir des comparatifs nationaux.</p>
+  </section>
+
+  <!-- ============ MENU ============ -->
+  <section class="sec" id="v-menu" role="tabpanel" aria-labelledby="t-menu" hidden>
+    <div class="card">
+      <h2>Menu de la semaine</h2>
+      <div id="mnList"><p class="msg">Ajoutez des plats depuis l'onglet Recettes avec le bouton « + Au menu ». La liste de courses se fait toute seule.</p></div>
+    </div>
+    <div class="card" id="mnShopBox" hidden>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">
+        <h2>Liste de courses</h2>
+        <span class="mono" style="font-weight:600" id="mnTotal"></span>
+      </div>
+      <p class="msg" id="mnStores"></p>
+      <p class="msg">Cochez au fur et à mesure dans le magasin. « On l'a » retire l'article du coût.</p>
+      <div id="mnShop"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button type="button" class="btn solid" id="mnCopy">Copier la liste</button>
+        <button type="button" class="btn" id="mnUncheck">Décocher tout</button>
+        <button type="button" class="btn danger" id="mnClear">Vider le menu</button>
+        <span class="copied" id="mnMsg" hidden></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NOS PRODUITS ============ -->
+  <section class="sec" id="v-prod" role="tabpanel" aria-labelledby="t-prod" hidden>
+    <p class="notice" id="dbNote" hidden></p>
+
+    <div class="card" id="funBox">
+      <div class="jar-row">
+        <svg class="jar" viewBox="0 0 86 104" aria-hidden="true">
+          <defs><clipPath id="jarClip"><path d="M14 22 H72 V90 Q72 100 62 100 H24 Q14 100 14 90 Z"/></clipPath></defs>
+          <rect class="lid" x="18" y="6" width="50" height="12" rx="4"/>
+          <path class="glass" d="M14 22 H72 V90 Q72 100 62 100 H24 Q14 100 14 90 Z"/>
+          <rect class="coins" id="jarFill" x="14" y="100" width="58" height="0" clip-path="url(#jarClip)"/>
+        </svg>
+        <div style="min-width:0">
+          <div class="label">Notre cagnotte</div>
+          <div class="mono big2" id="cagAmt">0 €</div>
+          <p class="msg" id="cagTxt"></p>
+          <p class="msg">But : <button type="button" class="linkbtn" id="cagEdit"></button></p>
+        </div>
+      </div>
+      <form class="form" id="cagForm" hidden>
+        <div class="field"><label class="label" for="cBut">Pour quoi on économise ?</label><input id="cBut" maxlength="50" placeholder="Resto en famille"></div>
+        <div class="field"><label class="label" for="cCible">Montant visé (€)</label><input id="cCible" type="number" inputmode="decimal" min="10" step="10"></div>
+        <div class="field"><label class="label" for="cRef">Budget de départ (€/mois)</label><input id="cRef" type="number" inputmode="decimal" min="50" step="10"></div>
+        <div style="display:flex;align-items:flex-end"><button type="submit" class="btn solid">Enregistrer</button></div>
+      </form>
+      <div class="label" style="margin-top:4px">Défis de la semaine</div>
+      <div class="sec" style="gap:8px" id="defis"></div>
+      <p class="msg" id="defiMsg"></p>
+      <div class="label">Nos badges · <span id="badgeCount"></span></div>
+      <div class="badges" id="badges"></div>
+    </div>
+
+    <div class="card" id="budBox">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">
+        <h2>Budget courses · <span id="budMonth"></span></h2>
+        <span class="msg">Objectif <button type="button" class="linkbtn mono" id="budEdit"></button></span>
+      </div>
+      <div class="budnum"><span class="mono big2" id="budSpent">0 €</span><span class="msg" id="budLeft"></span></div>
+      <div class="meter" aria-hidden="true"><span id="budFill"></span><i id="budPace"></i></div>
+      <p class="msg" id="budPaceTxt"></p>
+      <form class="form" id="budObjForm" hidden>
+        <div class="field"><label class="label" for="bObj">Objectif mensuel (€)</label><input id="bObj" type="number" inputmode="decimal" min="50" step="10"></div>
+        <div style="display:flex;align-items:flex-end;gap:8px"><button type="submit" class="btn solid">Enregistrer</button></div>
+      </form>
+      <div class="card" id="scanBox" style="background:var(--green-soft);border-color:transparent" hidden>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <label class="btn solid filebtn" for="scanIn">Scanner un ticket (photo)<input type="file" id="scanIn" accept="image/*"></label>
+          <button type="button" class="btn" id="scanStop" hidden>Arrêter</button>
+        </div>
+        <p class="msg" id="scanMsg">Claude lit le total, le magasin et les articles, puis met à jour vos produits. Environ 30 secondes.</p>
+        <div id="scanOut"></div>
+      </div>
+      <form class="form" id="tickForm" autocomplete="off">
+        <div class="field"><label class="label" for="tMt">Ticket de caisse (€)</label><input id="tMt" type="number" inputmode="decimal" step="0.01" min="0" required placeholder="87,40"></div>
+        <div class="field"><label class="label" for="tMag">Magasin</label><select id="tMag"></select></div>
+        <div class="full" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button type="submit" class="btn solid" id="tGo">Ajouter le ticket</button><p class="msg" id="tMsg"></p></div>
+      </form>
+      <div id="tickList"></div>
+    </div>
+
+    <div class="card" id="topBox" hidden>
+      <h2>Ce qu'on achète le plus</h2>
+      <div class="bars" id="top"></div>
+    </div>
+
+    <div class="card" id="addBox">
+      <h2>Ajouter un produit</h2>
+      <form class="form" id="addForm" autocomplete="off">
+        <div class="field full"><label class="label" for="fNom">Produit</label>
+          <input id="fNom" list="ingList" required maxlength="60" placeholder="ex. Pâtes, Yaourts nature, Café moulu"></div>
+        <datalist id="ingList"></datalist>
+        <div class="field"><label class="label" for="fCat">Rayon</label>
+          <select id="fCat"><option value="epicerie">Épicerie</option><option value="frais">Crèmerie & œufs</option><option value="viande">Viande & charcuterie</option><option value="legumes">Fruits & légumes</option><option value="autre">Autre (hygiène, boissons…)</option></select></div>
+        <div class="field"><label class="label" for="fPrix">Prix payé (facultatif)</label>
+          <div style="display:flex;gap:6px"><input id="fPrix" type="number" inputmode="decimal" step="0.01" min="0" placeholder="1,10" style="min-width:0">
+          <select id="fUnite" style="width:auto" aria-label="Unité du prix"><option value="kg">€/kg</option><option value="L">€/L</option><option value="pc">€/pièce</option></select></div></div>
+        <div class="full" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button type="submit" class="btn solid" id="fGo">Ajouter</button>
+          <p class="msg" id="fMsg"></p>
+        </div>
+      </form>
+      <div class="sec" style="gap:8px">
+        <div class="label">Ajout rapide</div>
+        <div class="chips" id="quick"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">
+        <h2>Notre liste</h2>
+        <span class="msg">Touchez « + Acheté » à chaque passage en caisse</span>
+      </div>
+      <div id="plist"><div class="empty">Chargement de votre liste…</div></div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+const STORES=[
+ {id:"leclerc",name:"E.Leclerc",place:"Vauxbuin (Les Portes de Soissons)",idx:{epicerie:1,frais:1,viande:1,legumes:1}},
+ {id:"aldi",name:"Aldi",place:"Soissons, av. de Compiègne / ZAC de l'Archer",idx:{epicerie:.97,frais:.98,viande:.99,legumes:1}},
+ {id:"lidl",name:"Lidl",place:"secteur Soissons / Villers-Cotterêts",idx:{epicerie:.97,frais:.98,viande:.99,legumes:.98}},
+ {id:"inter",name:"Intermarché",place:"Belleu",idx:{epicerie:1.03,frais:1.02,viande:1.03,legumes:1.04}},
+ {id:"cora",name:"Cora",place:"Soissons, av. Raymonde Fiolet",idx:{epicerie:1.06,frais:1.05,viande:1.05,legumes:1.06}},
+ {id:"gfrais",name:"Grand Frais",place:"Soissons, Parc des Moulins. Fort sur les fruits et légumes",idx:{epicerie:1.15,frais:1.08,viande:1.05,legumes:.9}}
+];
+const ING={
+ pates:{n:"Pâtes",u:"kg",p:1.10,c:"epicerie"},
+ riz:{n:"Riz long",u:"kg",p:1.55,c:"epicerie"},
+ lentilles:{n:"Lentilles vertes",u:"kg",p:2.40,c:"epicerie"},
+ semoule:{n:"Semoule moyenne",u:"kg",p:1.35,c:"epicerie"},
+ farine:{n:"Farine",u:"kg",p:0.85,c:"epicerie"},
+ tomates:{n:"Tomates concassées",u:"kg",p:1.90,c:"epicerie"},
+ poischiches:{n:"Pois chiches",u:"kg",p:1.80,c:"epicerie"},
+ thon:{n:"Thon en boîte",u:"kg",p:12.50,c:"epicerie"},
+ bouillon:{n:"Cube de bouillon",u:"pc",p:0.10,c:"epicerie"},
+ oeufs:{n:"Œufs",u:"pc",p:0.26,c:"frais"},
+ lait:{n:"Lait",u:"L",p:1.05,c:"frais"},
+ beurre:{n:"Beurre",u:"kg",p:8.80,c:"frais"},
+ creme:{n:"Crème fraîche",u:"L",p:4.40,c:"frais"},
+ emmental:{n:"Emmental râpé",u:"kg",p:8.90,c:"frais"},
+ lardons:{n:"Lardons",u:"kg",p:8.50,c:"viande"},
+ jambon:{n:"Dés de jambon",u:"kg",p:9.00,c:"viande"},
+ hache:{n:"Bœuf haché",u:"kg",p:9.90,c:"viande"},
+ poulet:{n:"Cuisses de poulet",u:"kg",p:4.50,c:"viande"},
+ saucisses:{n:"Saucisses",u:"kg",p:7.20,c:"viande"},
+ pdt:{n:"Pommes de terre",u:"kg",p:1.25,c:"legumes"},
+ oignons:{n:"Oignons",u:"kg",p:1.60,c:"legumes"},
+ carottes:{n:"Carottes",u:"kg",p:1.30,c:"legumes"},
+ courgettes:{n:"Courgettes",u:"kg",p:2.40,c:"legumes"},
+ courge:{n:"Courge / potiron",u:"kg",p:1.90,c:"legumes"},
+ poireaux:{n:"Poireaux",u:"kg",p:2.30,c:"legumes"},
+ petitspois:{n:"Petits pois surgelés",u:"kg",p:2.50,c:"legumes"},
+ pommes:{n:"Pommes",u:"kg",p:1.90,c:"legumes"}
+};
+const CATS={epicerie:"Épicerie",frais:"Crèmerie & œufs",viande:"Viande & charcuterie",legumes:"Fruits & légumes",autre:"Autre"};
+const RECIPES=[
+ {n:"Lentilles carottes et lardons",t:"40 min",i:{lentilles:.4,carottes:.4,oignons:.15,lardons:.2,bouillon:1},
+  s:["Faire revenir l'oignon émincé et les lardons dans une cocotte.","Ajouter les carottes en rondelles, les lentilles rincées, le cube et 1,2 L d'eau.","Laisser mijoter 30 min à couvert, saler en fin de cuisson."]},
+ {n:"Pâtes tomate et thon",t:"20 min",i:{pates:.5,tomates:.8,thon:.28,oignons:.1},
+  s:["Faire fondre l'oignon dans un filet d'huile, ajouter les tomates et laisser réduire 10 min.","Cuire les pâtes.","Ajouter le thon émietté à la sauce hors du feu, mélanger aux pâtes."]},
+ {n:"Tortilla pommes de terre et oignons",t:"35 min",i:{oeufs:8,pdt:.8,oignons:.15},
+  s:["Couper les pommes de terre en fines lamelles, les cuire à la poêle avec l'oignon et de l'huile, 15 min à feu moyen.","Battre les œufs, saler, y verser les pommes de terre égouttées.","Remettre dans la poêle 5 min, retourner avec une assiette, cuire encore 3 min."]},
+ {n:"Soupe de potiron",t:"35 min",i:{courge:1.2,pdt:.3,oignons:.15,creme:.2,bouillon:1},
+  s:["Éplucher et couper la courge et les pommes de terre en cubes.","Faire revenir l'oignon, ajouter les légumes, le cube et couvrir d'eau.","Cuire 25 min, mixer avec la crème. Bien de saison en octobre."]},
+ {n:"Couscous de légumes et pois chiches",t:"45 min",i:{semoule:.4,poischiches:.8,carottes:.4,courgettes:.4,tomates:.4,oignons:.1,bouillon:1},
+  s:["Faire revenir l'oignon, ajouter carottes, tomates, cube, épices (ras el hanout ou cumin) et 1 L d'eau.","Après 20 min, ajouter courgettes et pois chiches égouttés, cuire 15 min.","Préparer la semoule avec le même volume d'eau bouillante salée et un filet d'huile."]},
+ {n:"Riz cantonais maison",t:"25 min",i:{riz:.4,oeufs:4,petitspois:.3,jambon:.2,oignons:.1},
+  s:["Cuire le riz la veille si possible (il colle moins).","Faire une omelette fine, la couper en lanières.","Sauter à la poêle oignon, petits pois, jambon puis riz ; ajouter l'omelette et un peu de sauce soja si tu en as."]},
+ {n:"Hachis parmentier",t:"1 h",i:{pdt:1.2,hache:.4,lait:.2,beurre:.03,emmental:.08,oignons:.1},
+  s:["Cuire les pommes de terre à l'eau, écraser avec le lait et le beurre.","Faire revenir l'oignon et la viande hachée, assaisonner.","Monter viande puis purée dans un plat, parsemer d'emmental, gratiner 20 min à 200 °C."]},
+ {n:"Cuisses de poulet et pommes de terre au four",t:"1 h",i:{poulet:1.2,pdt:1,oignons:.15},
+  s:["Couper les pommes de terre en quartiers et l'oignon en lamelles dans un plat.","Poser les cuisses dessus, huile, sel, poivre, herbes.","Cuire 50 min à 200 °C en arrosant à mi-cuisson."]},
+ {n:"Gratin de pâtes au jambon",t:"35 min",i:{pates:.4,jambon:.2,creme:.2,emmental:.1},
+  s:["Cuire les pâtes un peu fermes.","Mélanger avec le jambon et la crème, saler, poivrer.","Verser dans un plat, couvrir d'emmental, gratiner 15 min à 210 °C."]},
+ {n:"Fondue de poireaux et saucisses",t:"40 min",i:{poireaux:.8,saucisses:.5,pdt:.6,creme:.1},
+  s:["Émincer les poireaux, les faire fondre 20 min à couvert avec un peu de beurre ou d'huile.","Dorer les saucisses à la poêle, cuire les pommes de terre à la vapeur.","Ajouter la crème aux poireaux et servir le tout ensemble."]},
+ {n:"Crêpes (repas ou goûter)",t:"30 min",i:{farine:.25,oeufs:4,lait:.5,beurre:.03},
+  s:["Mélanger farine et œufs, ajouter le lait petit à petit puis le beurre fondu.","Laisser reposer 30 min si possible.","Cuire à la poêle bien chaude. Salées : jambon, œuf, emmental."]},
+ {n:"Compote de pommes maison",t:"25 min",i:{pommes:1},
+  s:["Éplucher et couper les pommes.","Cuire 20 min à couvert avec un fond d'eau et un peu de cannelle.","Écraser à la fourchette ou mixer. Se garde 4 jours au frigo."]}
+];
+const PLACARD=0.15;
+
+/* ---------- état local (par téléphone) ---------- */
+const LS="pbs-v1";
+let saved={};
+try{saved=JSON.parse(localStorage.getItem(LS)||"{}")||{}}catch(e){saved={}}
+let state={store:saved.store||"best",pers:saved.pers||4,budget:saved.budget||4,prices:saved.prices||{},mode:saved.mode||"all",tab:saved.tab||"rec"};
+function persist(){try{localStorage.setItem(LS,JSON.stringify(state))}catch(e){}}
+
+/* ---------- produits partagés ---------- */
+let PRODUCTS=[];       // [{id,nom,cat,ing,prix,unite,achats,dernier}]
+let dbReady=false, db=null, canWrite=true;
+let MENU={plats:[],maison:[],caddie:[]};   // menu de la semaine partagé
+const inMenu=id=>MENU.plats.some(p=>p.r===id);
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/\s+/g," ").trim();
+const slug=s=>norm(s).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,60)||("p-"+Date.now());
+const eur=v=>v.toLocaleString("fr-FR",{style:"currency",currency:"EUR"});
+const fmtQ=(q,u)=>u==="pc"?(Math.round(q*10)/10).toLocaleString("fr-FR")+(q>1?" pcs":" pc"):u==="kg"?(q<1?Math.round(q*1000)+" g":q.toLocaleString("fr-FR",{maximumFractionDigits:2})+" kg"):(q<1?Math.round(q*100)+" cl":q.toLocaleString("fr-FR",{maximumFractionDigits:2})+" L");
+const uLabel=u=>u==="pc"?"pièce":u;
+
+function ingFromName(nom){const n=norm(nom);for(const k in ING){if(norm(ING[k].n)===n)return k}
+  for(const k in ING){const m=norm(ING[k].n);if(n.length>=4&&(m.startsWith(n)||n.startsWith(m)))return k}return ""}
+function prodPrice(k){const p=PRODUCTS.find(x=>x.ing===k&&typeof x.prix==="number"&&x.prix>0&&x.unite===ING[k].u);return p?p.prix:null}
+function price(k){const pp=prodPrice(k);if(pp!=null)return pp;return state.prices[k]!=null?state.prices[k]:ING[k].p}
+function haveSet(){const s=new Set();PRODUCTS.forEach(p=>{if(p.ing)s.add(p.ing)});return s}
+
+/* ---------- calculs recettes ---------- */
+function costFor(r,store,n){
+  const P=n||state.pers, f=P/4;let lines=[],tot=0;
+  for(const k in r.i){const ing=ING[k];let q=r.i[k]*f;if(ing.u==="pc")q=Math.ceil(q);
+    const c=q*price(k)*store.idx[ing.c];lines.push({k,q,c});tot+=c}
+  tot+=PLACARD*P;return{lines,tot}
+}
+function compute(r){
+  const per=STORES.map(s=>({s,tot:costFor(r,s).tot})).sort((a,b)=>a.tot-b.tot);
+  const sel=state.store==="best"?per[0].s:STORES.find(s=>s.id===state.store);
+  return{per,sel,detail:costFor(r,sel)}
+}
+
+/* ---------- rendu : recettes ---------- */
+function renderStores(){
+  const all=[{id:"best",name:"Le moins cher"}].concat(STORES);
+  $("stores").innerHTML=all.map(s=>`<button type="button" class="chip" data-id="${s.id}" aria-pressed="${state.store===s.id}">${s.name}</button>`).join("");
+  const s=STORES.find(x=>x.id===state.store);
+  $("where").textContent=s?s.place:"Pour chaque recette, l'appli choisit l'enseigne la moins chère.";
+}
+let openSet=new Set();
+function renderRecipes(){
+  const have=haveSet();
+  let rows=RECIPES.map(r=>{const keys=Object.keys(r.i);const got=keys.filter(k=>have.has(k)).length;return{r,got,nk:keys.length,...compute(r)}});
+  rows=rows.filter(x=>x.detail.tot/state.pers<=state.budget+1e-9);
+  if(state.mode==="have"){rows=rows.filter(x=>x.got>0).sort((a,b)=>(b.got/b.nk-a.got/a.nk)||(a.detail.tot-b.detail.tot))}
+  else rows.sort((a,b)=>a.detail.tot-b.detail.tot);
+  $("count").textContent=`${rows.length} recette${rows.length>1?"s":""} · pour ${state.pers} personne${state.pers>1?"s":""}`+(state.mode==="have"?" · triées par ingrédients déjà dans votre liste":"");
+  if(!rows.length){
+    $("recipes").innerHTML=state.mode==="have"
+      ?`<div class="empty">Aucune recette ne correspond encore à vos produits. Ajoutez-en dans l'onglet « Nos courses » (pâtes, œufs, pommes de terre…).</div>`
+      :`<div class="empty">Aucune recette sous ${eur(state.budget)} par part. Montez un peu le budget.</div>`;return}
+  $("recipes").innerHTML=rows.map(x=>{
+    const id=RECIPES.indexOf(x.r),tot=x.detail.tot,pp=tot/state.pers,max=x.per[x.per.length-1].tot,best=x.per[0];
+    const bestLine=state.store==="best"?`Chez ${best.s.name}`:(best.s.id===x.sel.id?"Déjà le moins cher ici":`Moins cher chez ${best.s.name} : ${eur(best.tot)}`);
+    const haveB=x.got?`<span class="have ${x.got===x.nk?"full":""}">${x.got===x.nk?"Tout est dans votre liste":`${x.got}/${x.nk} ingrédients dans votre liste`}</span>`:"";
+    return `<details class="recipe" data-id="${id}" ${openSet.has(id)?"open":""}>
+      <summary><div style="min-width:0"><div class="r-name">${x.r.n}</div>
+        <div class="r-meta">${x.r.t} · total ${eur(tot)}</div><div class="r-best">${bestLine}</div>${haveB}${inMenu(id)?`<span class="inmenu">Au menu</span>`:""}</div>
+        <div class="tag"><span class="big">${eur(pp)}</span><span class="small">la part</span></div></summary>
+      <div class="r-body">
+        <div><div class="label">Ingrédients · ${x.sel.name}</div>
+        <table class="ing"><tbody>${x.detail.lines.map(l=>`<tr class="${have.has(l.k)?"got":""}"><td>${ING[l.k].n}</td><td>${fmtQ(l.q,ING[l.k].u)}</td><td>${eur(l.c)}</td></tr>`).join("")}
+        <tr><td>Placard (huile, sel, épices)</td><td></td><td>${eur(PLACARD*state.pers)}</td></tr></tbody>
+        <tfoot><tr><td>Total</td><td></td><td>${eur(tot)}</td></tr></tfoot></table></div>
+        <div><div class="label" style="margin-bottom:6px">Comparaison des enseignes</div><div class="bars">
+        ${x.per.map((p,j)=>`<div class="bar ${j===0?"best":""}"><span class="nm">${p.s.name}</span><span class="track"><span class="fill" style="width:${(p.tot/max*100).toFixed(1)}%"></span></span><span class="v">${eur(p.tot)}</span></div>`).join("")}
+        </div></div>
+        <div><div class="label" style="margin-bottom:6px">Préparation</div><ol class="steps">${x.r.s.map(s=>`<li>${s}</li>`).join("")}</ol></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">${db&&canWrite?(inMenu(id)?`<button type="button" class="btn" data-menu="${id}">Retirer du menu</button>`:`<button type="button" class="btn solid" data-menu="${id}">+ Au menu</button>`):""}<button type="button" class="btn" data-copy="${id}">Copier la liste</button><span class="copied" id="cp${id}" hidden>Copiée</span></div>
+      </div></details>`}).join("");
+}
+function renderPrices(){
+  let h="";for(const c in CATS){if(c==="autre")continue;h+=`<div class="label p-cat">${CATS[c]}</div>`;
+    for(const k in ING){if(ING[k].c!==c)continue;const pp=prodPrice(k),ch=state.prices[k]!=null;
+      h+=`<div class="p-row"><label for="p-${k}">${ING[k].n}</label><input id="p-${k}" data-k="${k}" type="number" inputmode="decimal" step="0.01" min="0" value="${price(k).toFixed(2)}" class="${ch&&pp==null?"changed":""}" ${pp!=null?"disabled":""}><span class="u">€/${uLabel(ING[k].u)}</span></div>`}}
+  $("pgrid").innerHTML=h;
+}
+function renderCtl(){$("pers").textContent=state.pers;$("budget").value=state.budget;$("budgetVal").textContent=state.budget>=4?"sans limite":eur(state.budget);
+  document.querySelectorAll("#mode .chip").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===state.mode)));
+  $("aiBox").hidden=!(state.mode==="have"&&sampleFn&&PRODUCTS.length>0)}
+
+/* ---------- rendu : produits ---------- */
+let editOpen=null, confirmDel=null;
+function renderProducts(){
+  $("nprod").textContent=PRODUCTS.length?String(PRODUCTS.length):"";
+  const sorted=PRODUCTS.slice().sort((a,b)=>(b.achats||0)-(a.achats||0)||norm(a.nom).localeCompare(norm(b.nom)));
+  const top=sorted.filter(p=>(p.achats||0)>0).slice(0,6);
+  $("topBox").hidden=!top.length;
+  if(top.length){const mx=top[0].achats;
+    $("top").innerHTML=top.map((p,i)=>`<div class="bar ${i===0?"best":""}"><span class="nm">${esc(p.nom)}</span><span class="track"><span class="fill" style="width:${(p.achats/mx*100).toFixed(1)}%"></span></span><span class="v">${p.achats}×</span></div>`).join("")}
+  // ajout rapide : ingrédients pas encore dans la liste
+  const names=new Set(PRODUCTS.map(p=>p.ing).filter(Boolean));
+  const q=Object.keys(ING).filter(k=>!names.has(k)).slice(0,14);
+  $("quick").innerHTML=q.length?q.map(k=>`<button type="button" class="chip add" data-quick="${k}" ${canWrite&&dbReady?"":"disabled"}>${ING[k].n}</button>`).join(""):`<span class="msg">Tous les ingrédients des recettes sont déjà dans votre liste.</span>`;
+  if(!dbReady)return;
+  if(!sorted.length){$("plist").innerHTML=`<div class="empty">Votre liste est vide. Ajoutez vos produits habituels ci-dessus : ils apparaîtront ici, triés du plus acheté au moins acheté.</div>`;return}
+  $("plist").innerHTML=sorted.map(p=>{
+    const d=p.dernier?new Date(p.dernier).toLocaleDateString("fr-FR",{day:"numeric",month:"short"}):null;
+    const sub=[CATS[p.cat]||"Autre",(p.achats||0)?`acheté ${p.achats} fois`:"pas encore acheté",d?`dernier le ${d}`:null,(typeof p.prix==="number"&&p.prix>0)?`${eur(p.prix)}/${uLabel(p.unite)}`:null].filter(Boolean).join(" · ");
+    const open=editOpen===p.id;
+    return `<div class="prod" data-id="${esc(p.id)}">
+      <div style="min-width:0"><div class="p-name">${esc(p.nom)}</div><div class="p-sub">${esc(sub)}</div></div>
+      <div class="p-act">${canWrite?`<button type="button" class="plus" data-buy="${esc(p.id)}">+ Acheté</button><button type="button" class="more" data-edit="${esc(p.id)}" aria-expanded="${open}" aria-label="Modifier ${esc(p.nom)}">⋯</button>`:""}</div>
+      ${open?`<div class="edit">
+        <div class="field"><label class="label" for="e-prix">Prix payé</label><input id="e-prix" type="number" inputmode="decimal" step="0.01" min="0" value="${typeof p.prix==="number"?p.prix.toFixed(2):""}"></div>
+        <div class="field" style="flex:0 1 110px"><label class="label" for="e-unite">Unité</label><select id="e-unite">${["kg","L","pc"].map(u=>`<option value="${u}" ${p.unite===u?"selected":""}>€/${uLabel(u)}</option>`).join("")}</select></div>
+        <div class="field" style="flex:0 1 110px"><label class="label" for="e-n">Achats</label><input id="e-n" type="number" min="0" step="1" value="${p.achats||0}"></div>
+        <button type="button" class="btn solid" data-save="${esc(p.id)}">Enregistrer</button>
+        ${confirmDel===p.id?`<button type="button" class="btn danger" data-del2="${esc(p.id)}">Confirmer la suppression</button>`:`<button type="button" class="btn danger" data-del="${esc(p.id)}">Supprimer</button>`}
+      </div>`:""}
+    </div>`}).join("");
+}
+function renderDatalist(){$("ingList").innerHTML=Object.keys(ING).map(k=>`<option value="${ING[k].n}">`).join("")}
+
+function all(){renderStores();renderCtl();renderRecipes()}
+function onProductsChanged(){renderProducts();renderPrices();renderCtl();renderRecipes()}
+
+/* ---------- onglets ---------- */
+const TABS=["rec","menu","prod"];
+function showTab(t){if(!TABS.includes(t))t="rec";state.tab=t;persist();
+  TABS.forEach(x=>{$("t-"+x).setAttribute("aria-selected",String(t===x));$("v-"+x).hidden=t!==x})}
+TABS.forEach(x=>{$("t-"+x).onclick=()=>{showTab(x);window.scrollTo(0,0)}});
+
+/* ---------- événements recettes ---------- */
+$("stores").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;state.store=b.dataset.id;persist();all()});
+$("mode").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;state.mode=b.dataset.mode;persist();renderCtl();renderRecipes()});
+$("minus").onclick=()=>{if(state.pers>1){state.pers--;persist();all()}};
+$("plus").onclick=()=>{if(state.pers<12){state.pers++;persist();all()}};
+$("budget").addEventListener("input",e=>{state.budget=+e.target.value;persist();renderCtl();renderRecipes()});
+$("recipes").addEventListener("toggle",e=>{const d=e.target;if(!d.matches||!d.matches("details.recipe"))return;const id=+d.dataset.id;d.open?openSet.add(id):openSet.delete(id)},true);
+$("recipes").addEventListener("click",e=>{const b=e.target.closest("[data-copy]");if(!b)return;
+  const id=+b.dataset.copy,r=RECIPES[id],x=compute(r),have=haveSet();
+  const txt=`${r.n} (${state.pers} pers.) · ${x.sel.name}\n`+x.detail.lines.map(l=>`- ${ING[l.k].n} : ${fmtQ(l.q,ING[l.k].u)}${have.has(l.k)?" (on en prend d'habitude)":""}`).join("\n")+`\nTotal estimé : ${eur(x.detail.tot)}`;
+  copy(txt,()=>{const s=$("cp"+id);if(s){s.hidden=false;setTimeout(()=>s.hidden=true,1800)}})});
+function copy(t,ok){try{navigator.clipboard.writeText(t).then(ok,()=>fallback(t,ok))}catch(err){fallback(t,ok)}}
+function fallback(t,ok){const ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok()}catch(e){}ta.remove()}
+$("pgrid").addEventListener("change",e=>{const k=e.target.dataset.k;if(!k)return;const v=parseFloat(String(e.target.value).replace(",","."));
+  if(isNaN(v)||v<0){e.target.value=price(k).toFixed(2);return}
+  if(Math.abs(v-ING[k].p)<.001)delete state.prices[k];else state.prices[k]=v;
+  e.target.classList.toggle("changed",state.prices[k]!=null);persist();renderRecipes()});
+$("reset").onclick=()=>{state.prices={};persist();renderPrices();renderRecipes()};
+
+/* ---------- événements produits ---------- */
+function setMsg(t,err){const m=$("fMsg");m.textContent=t||"";m.classList.toggle("err",!!err)}
+function dbErr(e){const c=e&&e.code;return c==="quota_exceeded"?"La liste est pleine : supprimez quelques produits.":c==="invalid_argument"?"Vous n'avez pas le droit de modifier cette liste (demandez un accès Contributeur).":"Enregistrement impossible pour l'instant. Réessayez dans un moment."}
+$("fNom").addEventListener("change",()=>{const k=ingFromName($("fNom").value);if(k){$("fCat").value=ING[k].c;$("fUnite").value=ING[k].u}});
+async function addProduct(nom,cat,prix,unite){
+  if(!db)return;nom=nom.trim().slice(0,60);if(!nom)return;
+  const id=slug(nom);
+  if(PRODUCTS.some(p=>p.id===id||norm(p.nom)===norm(nom))){setMsg(`« ${nom} » est déjà dans la liste.`,true);return}
+  const ing=ingFromName(nom);
+  const body={nom,cat:cat||(ing?ING[ing].c:"autre"),ing,unite:unite||(ing?ING[ing].u:"pc"),achats:0,dernier:null,cree:new Date().toISOString()};
+  if(typeof prix==="number"&&prix>0)body.prix=prix;
+  try{await db.collection("produits").doc(id).set(body);setMsg(`« ${nom} » ajouté.`)}catch(e){setMsg(dbErr(e),true)}
+}
+$("addForm").addEventListener("submit",async e=>{e.preventDefault();
+  const v=parseFloat(String($("fPrix").value).replace(",","."));
+  $("fGo").disabled=true;await addProduct($("fNom").value,$("fCat").value,isNaN(v)?null:v,$("fUnite").value);$("fGo").disabled=false;
+  if(!$("fMsg").classList.contains("err")){$("fNom").value="";$("fPrix").value="";$("fNom").focus()}});
+$("quick").addEventListener("click",e=>{const b=e.target.closest("[data-quick]");if(!b)return;const k=b.dataset.quick;b.disabled=true;addProduct(ING[k].n,ING[k].c,null,ING[k].u)});
+const busy=new Set();
+$("plist").addEventListener("click",async e=>{
+  const t=e.target.closest("button");if(!t||!db)return;
+  if(t.dataset.buy){const id=t.dataset.buy,p=PRODUCTS.find(x=>x.id===id);if(!p||busy.has(id))return;busy.add(id);t.disabled=true;
+    try{await db.collection("produits").doc(id).update({achats:(p.achats||0)+1,dernier:new Date().toISOString()})}catch(err){alertLine(dbErr(err))}
+    busy.delete(id);return}
+  if(t.dataset.edit){editOpen=editOpen===t.dataset.edit?null:t.dataset.edit;confirmDel=null;renderProducts();return}
+  if(t.dataset.save){const id=t.dataset.save;const v=parseFloat(String($("e-prix").value).replace(",","."));const n=parseInt($("e-n").value,10);
+    const upd={unite:$("e-unite").value,achats:isNaN(n)||n<0?0:n,prix:isNaN(v)||v<=0?null:v};
+    t.disabled=true;try{await db.collection("produits").doc(id).update(upd);editOpen=null;renderProducts()}catch(err){alertLine(dbErr(err));t.disabled=false}return}
+  if(t.dataset.del){confirmDel=t.dataset.del;renderProducts();return}
+  if(t.dataset.del2){const id=t.dataset.del2;t.disabled=true;try{await db.collection("produits").doc(id).delete();editOpen=null;confirmDel=null}catch(err){alertLine(dbErr(err));t.disabled=false}}
+});
+function alertLine(t){const n=$("dbNote");n.hidden=false;n.innerHTML="<b>"+esc(t)+"</b>"}
+
+/* ---------- Claude : idées de recettes ---------- */
+let sampleFn=null, aiCtl=null;
+$("aiStop").onclick=()=>aiCtl&&aiCtl.abort();
+$("aiGo").onclick=async()=>{
+  if(!sampleFn)return;
+  const list=PRODUCTS.slice().sort((a,b)=>(b.achats||0)-(a.achats||0)).slice(0,40)
+    .map(p=>`- ${p.nom} (acheté ${p.achats||0} fois${typeof p.prix==="number"&&p.prix>0?`, ${p.prix.toFixed(2)} €/${uLabel(p.unite)}`:""})`).join("\n");
+  const prompt=`Tu aides une famille près de Soissons (Aisne) à cuisiner pas cher. Voici les produits qu'elle achète, du plus fréquent au moins fréquent :\n${list}\n\nPropose 3 recettes simples et économiques pour ${state.pers} personnes, de saison (octobre), qui utilisent surtout ces produits. Évite ces recettes déjà connues : ${RECIPES.map(r=>r.n).join(", ")}.\nRéponds uniquement avec un tableau JSON de 3 objets de la forme {"nom": string, "temps": string, "cout_part_euros": number, "avec_nos_produits": [string], "a_acheter_en_plus": [string], "etapes": [string]} en français. Le coût par part est une estimation avec des prix de supermarché discount. 3 à 5 étapes courtes par recette.`;
+  aiCtl=new AbortController();$("aiGo").disabled=true;$("aiStop").hidden=false;$("aiMsg").textContent="Claude réfléchit…";$("aiOut").innerHTML="";
+  try{
+    const res=await sampleFn.json(prompt,{signal:aiCtl.signal,cache:false});
+    const arr=Array.isArray(res)?res:[];
+    if(!arr.length)throw{code:"invalid_json"};
+    $("aiMsg").textContent="Propositions de Claude. Coûts estimés, à vérifier en magasin.";
+    $("aiOut").innerHTML=arr.slice(0,3).map(r=>{
+      const cp=Number(r.cout_part_euros);
+      return `<div class="idea"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
+        <div style="min-width:0"><h3>${esc(r.nom)}</h3><div class="r-meta">${esc(r.temps||"")}</div></div>
+        ${isFinite(cp)&&cp>0?`<div class="tag"><span class="big">${eur(cp)}</span><span class="small">la part</span></div>`:""}</div>
+        ${Array.isArray(r.avec_nos_produits)&&r.avec_nos_produits.length?`<div><div class="label">Avec nos produits</div><div class="msg">${esc(r.avec_nos_produits.join(", "))}</div></div>`:""}
+        ${Array.isArray(r.a_acheter_en_plus)&&r.a_acheter_en_plus.length?`<div><div class="label">À acheter en plus</div><div class="msg">${esc(r.a_acheter_en_plus.join(", "))}</div></div>`:""}
+        ${Array.isArray(r.etapes)?`<ol class="steps">${r.etapes.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>`:""}
+      </div>`}).join("");
+  }catch(e){
+    const c=e&&e.code;
+    if(c==="not_granted"||c==="sampling_disabled"||c==="not_declared"||c==="capability_disabled"||c==="capability_removed"){$("aiBox").hidden=true;sampleFn=null}
+    else if(c==="cancelled")$("aiMsg").textContent="Arrêté.";
+    else if(c==="rate_limited")$("aiMsg").textContent="Trop de demandes pour l'instant. Réessayez dans quelques minutes.";
+    else if(c==="invalid_json")$("aiMsg").textContent="La réponse n'était pas lisible. Touchez « Proposer 3 recettes » pour réessayer.";
+    else $("aiMsg").textContent="Claude n'a pas pu répondre. Réessayez dans un moment.";
+  }finally{$("aiGo").disabled=false;$("aiStop").hidden=true}
+};
+
+/* ---------- démarrage ---------- */
+renderDatalist();renderPrices();showTab(state.tab);all();renderProducts();
+
+(async()=>{
+  const c=window.claude;
+  if(!c||typeof c.use!=="function"){noDb();return}
+  try{const u=await c.use("user");if(u&&typeof u.can==="function"){const w=await u.can("data.write");if(w===false)canWrite=false}}catch(e){}
+  try{db=await c.use("db")}catch(e){db=null}
+  if(!db){noDb();return}
+  if(!canWrite){$("addBox").hidden=true;alertLine("Vous pouvez consulter la liste mais pas la modifier.")}
+  db.collection("produits").onSnapshot(snap=>{
+    PRODUCTS=snap.docs.map(d=>Object.assign({id:d.id},d.data()));dbReady=true;onProductsChanged();
+  },err=>{dbReady=true;alertLine(err&&err.code==="revoked"?"La liste n'est plus accessible sur cet appareil.":"La liste partagée ne répond pas. Rechargez la page.");renderProducts()});
+  startBudget();startMenu();startFun();renderRecipes();
+  try{sampleFn=await c.use("sample")}catch(e){sampleFn=null}
+  initScan();
+  renderCtl();
+})();
+/* ---------- budget du mois ---------- */
+let TICKETS=[], OBJ=800, REF=800, delArm=null;
+const mkey=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+const now0=new Date(), CUR=mkey(now0), PREV=mkey(new Date(now0.getFullYear(),now0.getMonth()-1,1));
+$("budMonth").textContent=now0.toLocaleDateString("fr-FR",{month:"long",year:"numeric"});
+$("tMag").innerHTML=STORES.map(s=>`<option value="${s.name}">${s.name}</option>`).join("")+`<option value="Autre">Autre</option>`;
+function renderBudget(){
+  const cur=TICKETS.filter(t=>t.mois===CUR), prev=TICKETS.filter(t=>t.mois===PREV);
+  const spent=cur.reduce((a,t)=>a+(+t.montant||0),0);
+  const day=now0.getDate(), dim=new Date(now0.getFullYear(),now0.getMonth()+1,0).getDate();
+  $("budEdit").textContent=eur(OBJ);
+  $("budSpent").textContent=eur(spent);
+  const left=OBJ-spent;
+  $("budLeft").textContent=left>=0?`dépensés · reste ${eur(left)}`:`dépensés · ${eur(-left)} au-dessus de l'objectif`;
+  const f=$("budFill");f.style.width=Math.min(100,spent/OBJ*100).toFixed(1)+"%";f.classList.toggle("over",spent>OBJ*day/dim*1.05);
+  $("budPace").style.left=(day/dim*100).toFixed(1)+"%";
+  let txt=`Le trait marque où vous devriez en être au ${day} (${eur(OBJ*day/dim)}).`;
+  if(cur.length&&day>=5){const proj=spent/day*dim;txt+=` À ce rythme : environ ${eur(Math.round(proj))} sur le mois.`}
+  if(prev.length){const ps=prev.reduce((a,t)=>a+(+t.montant||0),0);txt+=` Mois dernier : ${eur(ps)}.`}
+  $("budPaceTxt").textContent=txt;
+  if(!cur.length){$("tickList").innerHTML=`<p class="msg">Aucun ticket ce mois-ci. Saisissez le total de chaque passage en caisse pour suivre la dépense.</p>`;return}
+  const by={};cur.forEach(t=>{by[t.mag]=(by[t.mag]||0)+(+t.montant||0)});
+  const shops=Object.entries(by).sort((a,b)=>b[1]-a[1]).map(([m,v])=>`<span>${esc(m)} <b>${eur(v)}</b></span>`).join("");
+  $("tickList").innerHTML=`<div class="label" style="margin-bottom:4px">Par magasin</div><div class="byshop">${shops}</div>
+   <div class="label" style="margin:12px 0 2px">Tickets du mois</div>`+
+   cur.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).map(t=>`<div class="tk">
+    <span class="mono" style="color:var(--muted)">${new Date(t.date).toLocaleDateString("fr-FR",{day:"2-digit",month:"2-digit"})}</span>
+    <span style="min-width:0;overflow-wrap:anywhere">${esc(t.mag)}</span>
+    <span class="mono">${eur(+t.montant||0)}</span>
+    ${canWrite?(delArm===t.id?`<button type="button" class="btn danger" style="padding:4px 8px" data-tdel2="${esc(t.id)}">Supprimer</button>`:`<button type="button" class="x" data-tdel="${esc(t.id)}" aria-label="Supprimer ce ticket">×</button>`):"<span></span>"}
+   </div>`).join("");
+}
+$("budEdit").onclick=()=>{if(!canWrite||!db)return;const f=$("budObjForm");f.hidden=!f.hidden;$("bObj").value=OBJ;if(!f.hidden)$("bObj").focus()};
+$("budObjForm").addEventListener("submit",async e=>{e.preventDefault();const v=parseFloat(String($("bObj").value).replace(",","."));
+  if(isNaN(v)||v<50)return;try{await db.doc("reglages/budget").set({objectif:Math.round(v),reference:REF});$("budObjForm").hidden=true}catch(err){alertLine(dbErr(err))}});
+$("tickForm").addEventListener("submit",async e=>{e.preventDefault();if(!db)return;
+  const v=parseFloat(String($("tMt").value).replace(",","."));
+  if(isNaN(v)||v<=0||v>2000){$("tMsg").textContent="Montant invalide.";return}
+  $("tGo").disabled=true;
+  try{await db.collection("tickets").add({montant:Math.round(v*100)/100,mag:$("tMag").value,date:new Date().toISOString(),mois:CUR});$("tMt").value="";$("tMsg").textContent="Ticket ajouté."}
+  catch(err){$("tMsg").textContent=dbErr(err)}
+  $("tGo").disabled=false});
+$("tickList").addEventListener("click",async e=>{const b=e.target.closest("button");if(!b||!db)return;
+  if(b.dataset.tdel){delArm=b.dataset.tdel;renderBudget();return}
+  if(b.dataset.tdel2){b.disabled=true;try{await db.collection("tickets").doc(b.dataset.tdel2).delete()}catch(err){alertLine(dbErr(err))}delArm=null}});
+function startBudget(){
+  db.collection("tickets").onSnapshot(s=>{TICKETS=s.docs.map(d=>Object.assign({id:d.id},d.data()));renderBudget();renderCagnotte()},()=>{});
+  db.doc("reglages/budget").onSnapshot(s=>{const d=s.exists?s.data():{};const o=+d.objectif,r=+d.reference;OBJ=o>0?o:800;REF=r>0?r:800;renderBudget();renderCagnotte()},()=>{});
+  if(!canWrite){$("tickForm").hidden=true}
+}
+renderBudget();
+
+/* ================= MENU DE LA SEMAINE ================= */
+const MENU_DOC="menu/semaine";
+let mTimer=null, mWriting=false, mDirty=false, mClearArm=false;
+function saveMenu(next){if(!db||!canWrite)return;MENU=next;renderMenu();renderRecipes();mDirty=true;clearTimeout(mTimer);mTimer=setTimeout(flushMenu,400)}
+async function flushMenu(){if(mWriting||!mDirty)return;mWriting=true;mDirty=false;
+  try{await db.doc(MENU_DOC).set(JSON.parse(JSON.stringify(MENU)))}catch(e){alertLine(dbErr(e))}
+  mWriting=false;if(mDirty)flushMenu()}
+function startMenu(){
+  db.doc(MENU_DOC).onSnapshot(s=>{if(mDirty||mWriting)return;const d=s.exists?s.data():{};
+    MENU={plats:Array.isArray(d.plats)?d.plats.filter(p=>RECIPES[p.r]):[],maison:Array.isArray(d.maison)?d.maison:[],caddie:Array.isArray(d.caddie)?d.caddie:[]};
+    renderMenu();renderRecipes()},()=>{});
+}
+function menuAgg(){const agg={};let placard=0;
+  MENU.plats.forEach(p=>{const r=RECIPES[p.r];if(!r)return;const n=p.n||4,f=n/4;placard+=PLACARD*n;
+    for(const k in r.i){let q=r.i[k]*f;if(ING[k].u==="pc")q=Math.ceil(q);agg[k]=(agg[k]||0)+q}});
+  return{agg,placard}}
+function menuTotals(){const {agg,placard}=menuAgg();
+  return STORES.map(s=>({s,tot:Object.keys(agg).filter(k=>!MENU.maison.includes(k)).reduce((a,k)=>a+agg[k]*price(k)*s.idx[ING[k].c],0)+placard})).sort((a,b)=>a.tot-b.tot)}
+function menuStore(){const t=menuTotals();return state.store==="best"?t[0].s:STORES.find(s=>s.id===state.store)}
+function renderMenu(){
+  const n=MENU.plats.length;$("nmenu").textContent=n?String(n):"";
+  if(!n){$("mnList").innerHTML=`<p class="msg">Ajoutez des plats depuis l'onglet Recettes avec le bouton « + Au menu ». La liste de courses se fait toute seule.</p>`;$("mnShopBox").hidden=true;return}
+  const sel=menuStore();
+  $("mnList").innerHTML=MENU.plats.map((p,i)=>{const r=RECIPES[p.r],c=costFor(r,sel,p.n||4).tot;
+    return `<div class="mn"><div style="min-width:0"><div style="font-weight:700">${r.n}</div><div class="p-sub">${eur(c)} · ${eur(c/(p.n||4))} la part</div></div>
+      <div class="p-act"><div class="stepper"><button type="button" data-mnm="${i}" aria-label="Une part de moins">−</button><output>${p.n||4}</output><button type="button" data-mnp="${i}" aria-label="Une part de plus">+</button></div>
+      <button type="button" class="more" data-mnx="${i}" aria-label="Retirer ${r.n}">×</button></div></div>`}).join("")+
+    `<p class="msg" style="margin-top:8px">${n} repas · les chiffres à droite sont le nombre de parts.</p>`;
+  const {agg}=menuAgg(),tots=menuTotals(),selTot=tots.find(t=>t.s.id===sel.id).tot;
+  $("mnShopBox").hidden=false;
+  $("mnTotal").textContent=eur(selTot)+" · "+sel.name;
+  $("mnStores").textContent="Le plein complet : "+tots.slice(0,3).map(t=>`${t.s.name} ${eur(t.tot)}`).join(" · ")+(tots.length>3?" …":"");
+  let h="";
+  for(const c in CATS){const ks=Object.keys(agg).filter(k=>ING[k].c===c);if(!ks.length)continue;
+    h+=`<div class="label shop-cat">${CATS[c]}</div>`+ks.map(k=>{const home=MENU.maison.includes(k),done=MENU.caddie.includes(k);
+      return `<div class="sh ${done?"done":""} ${home?"home":""}"><input type="checkbox" data-cad="${k}" ${done?"checked":""} aria-label="${ING[k].n} dans le caddie">
+        <span class="nm" style="min-width:0">${ING[k].n} <span class="q">${fmtQ(agg[k],ING[k].u)}</span></span>
+        <button type="button" class="mini" data-home="${k}" aria-pressed="${home}">On l'a</button>
+        <span class="q">${home?"—":eur(agg[k]*price(k)*sel.idx[ING[k].c])}</span></div>`}).join("")}
+  $("mnShop").innerHTML=h;
+  $("mnClear").textContent=mClearArm?"Confirmer : vider":"Vider le menu";
+}
+$("recipes").addEventListener("click",e=>{const b=e.target.closest("[data-menu]");if(!b)return;const id=+b.dataset.menu;
+  const next=JSON.parse(JSON.stringify(MENU));
+  if(inMenu(id))next.plats=next.plats.filter(p=>p.r!==id);else next.plats.push({r:id,n:state.pers});
+  saveMenu(next)});
+$("mnList").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const next=JSON.parse(JSON.stringify(MENU));
+  if(b.dataset.mnm!=null){const p=next.plats[+b.dataset.mnm];if(p&&(p.n||4)>1)p.n=(p.n||4)-1;else return}
+  else if(b.dataset.mnp!=null){const p=next.plats[+b.dataset.mnp];if(p&&(p.n||4)<12)p.n=(p.n||4)+1;else return}
+  else if(b.dataset.mnx!=null){next.plats.splice(+b.dataset.mnx,1)}else return;
+  saveMenu(next)});
+$("mnShop").addEventListener("click",e=>{const t=e.target;const next=JSON.parse(JSON.stringify(MENU));
+  if(t.dataset&&t.dataset.cad){const k=t.dataset.cad;next.caddie=t.checked?[...new Set(next.caddie.concat(k))]:next.caddie.filter(x=>x!==k);saveMenu(next);return}
+  const b=t.closest&&t.closest("[data-home]");if(b){const k=b.dataset.home;next.maison=next.maison.includes(k)?next.maison.filter(x=>x!==k):next.maison.concat(k);saveMenu(next)}});
+$("mnUncheck").onclick=()=>{const next=JSON.parse(JSON.stringify(MENU));next.caddie=[];saveMenu(next)};
+$("mnClear").onclick=()=>{if(!mClearArm){mClearArm=true;renderMenu();setTimeout(()=>{mClearArm=false;renderMenu()},4000);return}
+  mClearArm=false;saveMenu({plats:[],maison:[],caddie:[]})};
+$("mnCopy").onclick=()=>{const {agg}=menuAgg(),sel=menuStore();let txt=`Courses de la semaine · ${sel.name}\n`;
+  for(const c in CATS){const ks=Object.keys(agg).filter(k=>ING[k].c===c&&!MENU.maison.includes(k));if(!ks.length)continue;
+    txt+=`\n${CATS[c]}\n`+ks.map(k=>`☐ ${ING[k].n} : ${fmtQ(agg[k],ING[k].u)}`).join("\n")+"\n"}
+  txt+=`\nTotal estimé : ${eur(menuTotals().find(t=>t.s.id===sel.id).tot)}\nRepas : ${MENU.plats.map(p=>RECIPES[p.r].n).join(", ")}`;
+  copy(txt,()=>{const s=$("mnMsg");s.textContent="Copiée";s.hidden=false;setTimeout(()=>s.hidden=true,1800)})};
+
+/* ================= CAGNOTTE, DÉFIS, BADGES ================= */
+let CAG={but:"Une sortie en famille",cible:100}, DEFI_DOCS={}, prevBadges=null, defiBusy=false;
+const DEFIS=[
+ {id:"vege3",t:"3 repas sans viande cette semaine"},
+ {id:"zeroprep",t:"Aucun plat préparé acheté"},
+ {id:"restes",t:"Un repas fait avec les restes du frigo"},
+ {id:"liste",t:"Courses faites avec la liste du menu, rien en plus"},
+ {id:"unesortie",t:"Une seule sortie courses dans la semaine"},
+ {id:"mdd3",t:"3 produits de marque remplacés par la marque distributeur"},
+ {id:"soupe",t:"Une soupe maison"},
+ {id:"gouter",t:"Goûters faits maison toute la semaine"},
+ {id:"prixkg",t:"Comparer le prix au kilo avant chaque achat"},
+ {id:"antigaspi",t:"Un panier anti-gaspi récupéré (Too Good To Go…)"},
+ {id:"unparpers",t:"Un repas à moins de 1 € par personne"},
+ {id:"eau",t:"Pas de soda ni de jus acheté cette semaine"}
+];
+const pad2=n=>String(n).padStart(2,"0");
+const WK=(()=>{const x=new Date();x.setHours(0,0,0,0);x.setDate(x.getDate()-((x.getDay()+6)%7));return x})();
+const WKEY=`${WK.getFullYear()}-${pad2(WK.getMonth()+1)}-${pad2(WK.getDate())}`;
+const WEEK_DEFIS=(()=>{const w=Math.floor((WK.getTime()+3*864e5)/(7*864e5));const o=w%DEFIS.length;return[0,1,2].map(i=>DEFIS[(o+i*5)%DEFIS.length])})();
+const monthSpent=m=>TICKETS.filter(t=>t.mois===m).reduce((a,t)=>a+(+t.montant||0),0);
+function cagState(){
+  const months=[...new Set(TICKETS.map(t=>t.mois))].filter(m=>m&&m<CUR).sort();
+  let done=0;months.forEach(m=>{done+=REF-monthSpent(m)});
+  const day=now0.getDate(),dim=new Date(now0.getFullYear(),now0.getMonth()+1,0).getDate();
+  const curHas=TICKETS.some(t=>t.mois===CUR);const prov=curHas?REF*day/dim-monthSpent(CUR):0;
+  let serie=0;const d=new Date(now0.getFullYear(),now0.getMonth()-1,1);
+  for(let i=0;i<36;i++){const m=mkey(d),s=monthSpent(m);if(s>0&&s<=OBJ){serie++;d.setMonth(d.getMonth()-1)}else break}
+  return{months,done,prov,total:Math.max(0,done+Math.max(0,prov)),serie}
+}
+function renderCagnotte(){
+  const c=cagState();
+  $("cagAmt").textContent=eur(Math.round(c.total));
+  const ratio=Math.max(0,Math.min(1,c.total/(CAG.cible||100))),h=(78*ratio).toFixed(1);
+  const f=$("jarFill");f.setAttribute("height",h);f.setAttribute("y",(100-h).toFixed(1));
+  let t;
+  if(!TICKETS.length)t=`Elle se remplit avec l'écart entre votre budget de départ (${eur(REF)}) et ce que vous dépensez vraiment. Saisissez tous vos tickets pour la voir monter.`;
+  else{const parts=[];
+    if(c.months.length)parts.push(`${eur(Math.round(c.done))} ${c.done>=0?"gagnés":"perdus"} sur ${c.months.length} mois terminé${c.months.length>1?"s":""}`);
+    if(c.prov>0)parts.push(`+ ${eur(Math.round(c.prov))} d'avance ce mois-ci`);else if(c.prov<0)parts.push(`ce mois-ci : ${eur(Math.round(-c.prov))} de retard sur le rythme`);
+    if(c.serie)parts.push(`${c.serie} mois d'affilée sous l'objectif`);
+    t=parts.join(" · ")+". Calculé par rapport à "+eur(REF)+" par mois."}
+  $("cagTxt").textContent=t;
+  $("cagEdit").textContent=`${CAG.but} · ${eur(CAG.cible)}`+(c.total>=CAG.cible?" · atteint, bravo !":` · encore ${eur(Math.ceil(CAG.cible-c.total))}`);
+  renderBadges();
+}
+function defiTotal(){let n=0;for(const k in DEFI_DOCS){const d=DEFI_DOCS[k]&&DEFI_DOCS[k].done||{};for(const i in d)if(d[i])n++}return n}
+function renderDefis(){const done=(DEFI_DOCS[WKEY]&&DEFI_DOCS[WKEY].done)||{};
+  $("defis").innerHTML=WEEK_DEFIS.map(d=>`<button type="button" class="defi" data-defi="${d.id}" aria-pressed="${!!done[d.id]}" ${canWrite&&db?"":"disabled"}><span class="ck"></span><span>${d.t}</span></button>`).join("");
+  renderBadges()}
+const BADGES=[
+ {k:"d1",t:"Première graine",ok:s=>s.defis>=1},{k:"d3",t:"Jeune pousse",ok:s=>s.defis>=3},{k:"d6",t:"Beau potager",ok:s=>s.defis>=6},
+ {k:"d10",t:"Belle récolte",ok:s=>s.defis>=10},{k:"d20",t:"Chef économe",ok:s=>s.defis>=20},
+ {k:"m1",t:"Mois sous l'objectif",ok:s=>s.serie>=1},{k:"m3",t:"3 mois d'affilée",ok:s=>s.serie>=3},
+ {k:"cag",t:"Cagnotte remplie",ok:s=>s.total>=CAG.cible},{k:"menu",t:"Menu planifié",ok:s=>MENU.plats.length>=5}
+];
+function renderBadges(){const c=cagState(),s={defis:defiTotal(),serie:c.serie,total:c.total};
+  const on=BADGES.filter(b=>b.ok(s)).map(b=>b.k);
+  $("badges").innerHTML=BADGES.map(b=>`<span class="badge ${on.includes(b.k)?"on":""} ${prevBadges&&on.includes(b.k)&&!prevBadges.includes(b.k)?"new":""}"><i></i>${b.t}</span>`).join("");
+  $("badgeCount").textContent=`${on.length}/${BADGES.length}`;
+  prevBadges=on}
+$("defis").addEventListener("click",async e=>{const b=e.target.closest("[data-defi]");if(!b||!db||defiBusy)return;
+  const id=b.dataset.defi,cur=Object.assign({},(DEFI_DOCS[WKEY]&&DEFI_DOCS[WKEY].done)||{});
+  if(cur[id])delete cur[id];else cur[id]=true;
+  DEFI_DOCS[WKEY]={done:cur};renderDefis();defiBusy=true;
+  try{await db.collection("defis").doc(WKEY).set({done:cur});
+    $("defiMsg").innerHTML=cur[id]?`<span class="bravo">Bravo !</span> ${defiTotal()} défi${defiTotal()>1?"s":""} réussi${defiTotal()>1?"s":""} en tout.`:""}
+  catch(err){alertLine(dbErr(err))}
+  defiBusy=false});
+$("cagEdit").onclick=()=>{if(!canWrite||!db)return;const f=$("cagForm");f.hidden=!f.hidden;$("cBut").value=CAG.but;$("cCible").value=CAG.cible;$("cRef").value=REF};
+$("cagForm").addEventListener("submit",async e=>{e.preventDefault();
+  const but=$("cBut").value.trim().slice(0,50)||"Une sortie en famille",cible=parseFloat(String($("cCible").value).replace(",",".")),ref=parseFloat(String($("cRef").value).replace(",","."));
+  try{await db.doc("reglages/cagnotte").set({but,cible:cible>0?Math.round(cible):100});
+    if(ref>=50&&Math.round(ref)!==REF)await db.doc("reglages/budget").set({objectif:OBJ,reference:Math.round(ref)});
+    $("cagForm").hidden=true}catch(err){alertLine(dbErr(err))}});
+function startFun(){
+  db.doc("reglages/cagnotte").onSnapshot(s=>{const d=s.exists?s.data():{};CAG={but:d.but||"Une sortie en famille",cible:+d.cible>0?+d.cible:100};renderCagnotte()},()=>{});
+  db.collection("defis").onSnapshot(s=>{if(defiBusy)return;DEFI_DOCS={};s.docs.forEach(d=>DEFI_DOCS[d.id]=d.data());renderDefis()},()=>{});
+}
+renderDefis();renderCagnotte();
+
+/* ================= SCAN DU TICKET ================= */
+let scanCtl=null, SCAN=null;
+let scanBusy=false;
+async function initScan(){
+  if(!db||!canWrite||window.PBS_OFFLINE)return;
+  $("scanBox").hidden=false;
+  if(!sampleFn){scanOff("Le scan a besoin de Claude : ouvrez la page dans l'appli Claude, connecté à votre compte.");return}
+  let lim=null;try{lim=await sampleFn.limits()}catch(e){}
+  if(!lim||!lim.images){scanOff("Le scan photo n'est pas disponible dans cette version de l'appli Claude. Mettez l'appli à jour, ou ouvrez la page depuis claude.ai dans le navigateur.");return}
+}
+function scanOff(t){const l=document.querySelector('label[for="scanIn"]');if(l)l.hidden=true;scanSay(t,true)}
+$("scanStop").onclick=()=>scanCtl&&scanCtl.abort();
+$("scanIn").addEventListener("change",async e=>{const inp=e.target,f=inp.files&&inp.files[0];
+  if(!f){scanSay("Aucune photo reçue. Réessayez en choisissant « Appareil photo » ou une image de la galerie.",true);return}
+  if(scanBusy)return;scanBusy=true;
+  try{await runScan(f)}finally{scanBusy=false;try{inp.value=""}catch(err){}}});
+// réduit la photo (les capteurs 50 à 200 Mpx dépassent les limites) et la convertit en JPEG
+async function shrink(file){
+  const MAX=2000;
+  try{
+    let src,w,h,cleanup=()=>{};
+    if(window.createImageBitmap){src=await createImageBitmap(file);w=src.width;h=src.height;cleanup=()=>src.close&&src.close()}
+    else{const url=URL.createObjectURL(file);src=await new Promise((ok,ko)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=ko;im.src=url});w=src.naturalWidth;h=src.naturalHeight;cleanup=()=>URL.revokeObjectURL(url)}
+    const k=Math.min(1,MAX/Math.max(w,h)),cw=Math.round(w*k),ch=Math.round(h*k);
+    const cv=document.createElement("canvas");cv.width=cw;cv.height=ch;
+    const cx=cv.getContext("2d");cx.fillStyle="#fff";cx.fillRect(0,0,cw,ch);cx.drawImage(src,0,0,cw,ch);cleanup();
+    const blob=await new Promise(ok=>cv.toBlob(ok,"image/jpeg",.85));
+    return blob||file;
+  }catch(err){return file}
+}
+function scanSay(t,err){const m=$("scanMsg");m.textContent=t;m.classList.toggle("err",!!err)}
+async function runScan(file){
+  if(!sampleFn)return;
+  const known=[...new Set(PRODUCTS.map(p=>p.nom).concat(Object.keys(ING).map(k=>ING[k].n)))].slice(0,120).join(", ");
+  const prompt=`Voici la photo d'un ticket de caisse d'un supermarché français. Lis-le et réponds uniquement avec un objet JSON de cette forme :
+{"magasin": string, "date": "AAAA-MM-JJ" ou null, "total": number, "articles": [{"nom": string, "rayon": "epicerie"|"frais"|"viande"|"legumes"|"autre", "prix": number, "prix_unitaire": number ou null, "unite": "kg"|"L"|"pc"|null}]}
+Règles :
+- "total" = montant total payé en euros.
+- "nom" = nom simple et court en français, sans marque ni grammage (ex. "Pâtes", "Yaourt nature", "Lessive"). Si l'article correspond à un de ces produits déjà connus, reprends exactement ce nom : ${known}.
+- "prix" = montant payé pour la ligne. "prix_unitaire" = prix au kilo, au litre ou à la pièce s'il est imprimé sur le ticket ou calculable avec certitude, sinon null.
+- Ignore les lignes de sous-total, TVA, moyen de paiement, points fidélité. Les remises restent hors des articles.
+- Si la photo n'est pas un ticket de caisse lisible, réponds {"erreur": "illisible"}.`;
+  scanCtl=new AbortController();$("scanStop").hidden=false;$("scanOut").innerHTML="";scanSay("Préparation de la photo…");
+  try{
+    const img=await shrink(file);
+    scanSay("Claude lit le ticket… (la première fois, l'appli vous demande l'autorisation)");
+    const r=await sampleFn.json(prompt,{images:[img],signal:scanCtl.signal,cache:false});
+    if(!r||r.erreur||!Array.isArray(r.articles))throw{code:"illisible"};
+    SCAN={magasin:String(r.magasin||""),date:r.date,total:+r.total||0,
+      articles:r.articles.filter(a=>a&&a.nom&&isFinite(+a.prix)).slice(0,120).map(a=>({nom:String(a.nom).slice(0,60),rayon:String(a.rayon||""),prix:+a.prix,pu:+a.prix_unitaire>0?+a.prix_unitaire:null,unite:["kg","L","pc"].includes(a.unite)?a.unite:null,on:true}))};
+    renderScan();scanSay("Vérifiez puis enregistrez. Décochez ce qui n'est pas de l'alimentaire courant si vous voulez.");
+  }catch(e){const c=e&&e.code;
+    if(c==="cancelled")scanSay("Arrêté.");
+    else if(c==="illisible"||c==="invalid_json")scanSay("Le ticket n'a pas pu être lu. Reprenez la photo bien à plat, avec le ticket entier et net.",true);
+    else if(c==="image_rejected")scanSay("Cette image n'est pas acceptée. Prenez une photo normale (pas en mode 200 Mpx) ou une capture d'écran du ticket.",true);
+    else if(c==="rate_limited")scanSay("Trop de demandes pour l'instant. Réessayez dans quelques minutes.",true);
+    else if(c==="not_granted")scanSay("L'autorisation d'utiliser Claude a été refusée. Rechargez la page et acceptez la demande au prochain scan.",true);
+    else if(c==="sampling_disabled"||c==="images_unavailable"||c==="not_declared"||c==="capability_disabled"||c==="capability_removed")scanSay("Le scan photo n'est pas disponible ici (code : "+c+"). Essayez depuis claude.ai dans le navigateur.",true);
+    else if(c==="session_expired")scanSay("Votre session Claude a expiré. Reconnectez-vous puis réessayez.",true);
+    else scanSay("Claude n'a pas pu lire le ticket (code : "+(c||"inconnu")+"). Réessayez dans un moment.",true);
+  }finally{$("scanStop").hidden=true}
+}
+function guessStore(m){const n=norm(m).replace(/[^a-z]/g,"");const s=STORES.find(s=>n.includes(norm(s.name).replace(/[^a-z]/g,"")));return s?s.name:"Autre"}
+function scanDate(){const d=SCAN&&SCAN.date&&new Date(SCAN.date+"T12:00:00");const now=Date.now();
+  return d&&!isNaN(d)&&d.getTime()<=now+864e5&&d.getTime()>=now-60*864e5?d:new Date()}
+function renderScan(){if(!SCAN){$("scanOut").innerHTML="";return}
+  const mag=guessStore(SCAN.magasin),d=scanDate(),sum=SCAN.articles.reduce((a,x)=>a+x.prix,0);
+  $("scanOut").innerHTML=`<div class="form" style="margin-top:6px">
+    <div class="field"><label class="label" for="sTot">Total payé (€)</label><input id="sTot" type="number" inputmode="decimal" step="0.01" min="0" value="${SCAN.total?SCAN.total.toFixed(2):sum.toFixed(2)}"></div>
+    <div class="field"><label class="label" for="sMag">Magasin</label><select id="sMag">${STORES.map(s=>s.name).concat("Autre").map(n=>`<option ${n===mag?"selected":""}>${n}</option>`).join("")}</select></div></div>
+    <p class="msg">${esc(SCAN.magasin)} · ${d.toLocaleDateString("fr-FR")} · ${SCAN.articles.length} articles</p>
+    <div>${SCAN.articles.map((a,i)=>`<div class="scan-row"><input type="checkbox" data-sc="${i}" ${a.on?"checked":""} aria-label="Garder ${esc(a.nom)}"><span style="min-width:0;overflow-wrap:anywhere">${esc(a.nom)}${a.pu?` <span class="p-sub">${eur(a.pu)}/${uLabel(a.unite)}</span>`:""}</span><span class="q">${eur(a.prix)}</span></div>`).join("")}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button type="button" class="btn solid" id="sSave">Enregistrer le ticket et les produits</button><button type="button" class="btn" id="sCancel">Annuler</button></div>`;
+}
+$("scanOut").addEventListener("change",e=>{const i=e.target.dataset&&e.target.dataset.sc;if(i!=null&&SCAN)SCAN.articles[+i].on=e.target.checked});
+$("scanOut").addEventListener("click",async e=>{const b=e.target.closest("button");if(!b||!SCAN)return;
+  if(b.id==="sCancel"){SCAN=null;renderScan();scanSay("Claude lit le total, le magasin et les articles, puis met à jour vos produits. Environ 30 secondes.");return}
+  if(b.id!=="sSave")return;
+  const tot=parseFloat(String($("sTot").value).replace(",","."));
+  if(!(tot>0&&tot<2000)){scanSay("Total invalide.",true);return}
+  b.disabled=true;const d=scanDate(),iso=d.toISOString();
+  try{
+    await db.collection("tickets").add({montant:Math.round(tot*100)/100,mag:$("sMag").value,date:iso,mois:mkey(d),source:"scan"});
+    // regrouper les articles identiques du ticket
+    const groups={};SCAN.articles.filter(a=>a.on).forEach(a=>{const k=norm(a.nom);if(!groups[k])groups[k]={nom:a.nom,rayon:a.rayon,n:0,pu:null,unite:null};const g=groups[k];g.n++;if(a.pu){g.pu=a.pu;g.unite=a.unite}});
+    let up=0,nw=0;
+    for(const k in groups){const g=groups[k],ing=ingFromName(g.nom);
+      const p=PRODUCTS.find(x=>norm(x.nom)===k)||(ing?PRODUCTS.find(x=>x.ing===ing):null);
+      if(p){const upd={achats:(p.achats||0)+g.n,dernier:iso};if(g.pu){upd.prix=g.pu;upd.unite=g.unite}
+        await db.collection("produits").doc(p.id).update(upd);up++}
+      else{const id=slug(g.nom);const cat=ing?ING[ing].c:(CATS[g.rayon]?g.rayon:"autre");
+        const body={nom:g.nom,cat,ing,unite:g.unite||(ing?ING[ing].u:"pc"),achats:g.n,dernier:iso,cree:new Date().toISOString()};
+        if(g.pu)body.prix=g.pu;
+        await db.collection("produits").doc(id).set(body);nw++}}
+    SCAN=null;renderScan();
+    scanSay(`Ticket de ${eur(tot)} enregistré. ${up} produit${up>1?"s":""} mis à jour, ${nw} nouveau${nw>1?"x":""}.`);
+  }catch(err){b.disabled=false;scanSay(dbErr(err),true)}
+});
+
+function noDb(){dbReady=true;$("addBox").hidden=true;$("tickForm").hidden=true;$("funBox").hidden=true;
+  $("plist").innerHTML=`<div class="empty">La liste partagée n'est pas disponible ici. Ouvrez la page dans l'appli Claude en étant connecté.</div>`;renderProducts()}
+})();
+</script>
